@@ -44,17 +44,13 @@ clear; close all; clc;
 
 %% Paths
   
-%path_2_images = '??'; %Path to Animals with Attributes 2 images;
-%complete_path_2_Xian_AWA2_attributes = '??'; %Path to semantic embeddings by "The Good, The Bad and The Ugly" survey by Xian et al. TPAMI 18
-%complete_path_2_GoogleNet_Feats = '??'; %Path to GoogleNet features by Kodirov et al.
-%comptete_path_2_GoogleNet_MetaData = '??'; 	%Path to splits by Kodirov et al. (note that at the time, the paper
+path_2_images = '??'; %Path to Animals with Attributes 2 images;
+complete_path_2_Xian_AWA2_attributes = '??'; %Path to semantic embeddings by "The Good, The Bad and The Ugly" survey by Xian et al. TPAMI 18
+complete_path_2_GoogleNet_Feats = '??'; %Path to GoogleNet features by Kodirov et al.
+comptete_path_2_GoogleNet_MetaData = '??'; 	%Path to splits by Kodirov et al. (note that at the time, the paper
 											%simply couldn't rely on Proposed Splits by Xian et al. - which should
 											%be preferred for applications. For the sake of an accurate 
 											%historical reproduction of the code, I am not considering them.
-path_2_images = 'D:\Datasets\AnimalsWithAttributes2\Animals_with_Attributes2\JPEGImages';
-complete_path_2_Xian_AWA2_attributes = 'D:\Datasets\ZSL\Good_Bad_Ugly\xlsa17\AWA2\att_splits.mat';
-complete_path_2_GoogleNet_Feats = 'D:\OneDrive - Fondazione Istituto Italiano Tecnologia\2019-01-30-captioning-for-GZSL\ICCV2019-sanity-check-for-ZSL\ConSE-ICLR14\data\AwA_googlenet.mat';
-comptete_path_2_GoogleNet_MetaData = 'D:\OneDrive - Fondazione Istituto Italiano Tecnologia\2019-01-30-captioning-for-GZSL\ICCV2019-sanity-check-for-ZSL\ConSE-ICLR14\data\AWA_inform_release.mat';
 
 %% Visualizing Images from AWA2
                                
