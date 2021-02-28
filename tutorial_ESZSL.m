@@ -13,7 +13,7 @@ clear; close all; clc;
 % entitled "An Embarassingly Simple Approach for Zero-Shot Learning" and
 % authored by B. R. Paredes and P. H. Torr (from the Oxford University,
 % Department of Engineering Science, Parks Road, Oxford, OX1 3PJ, UK).
-% Therefore, the intellectual property of the algorithm coded here is not proprietary
+% Therefore, the intellectual property of the method behind the code is not proprietary
 % of the author of the code who downloaded the publicly available paper
 % from http://proceedings.mlr.press/v37/romera-paredes15.pdf and re-coded
 % by himself, exploiting publicly avaialable data (GoogleNet features 
@@ -114,6 +114,8 @@ hold off
 grid on
 drawnow
 
+%Red crosses represents classes unseen at training time.
+
 
 
 %% Visualizing Attributes
@@ -182,6 +184,7 @@ scores(:,SeenClassesID) = NaN; %ZSL inference: I kill contribution of seen class
 T1 = mean(PredictedUnseenLabels == Labels(where_unseen_samples));
 
 fprintf('The performance of EZSL on AWA2, with gamma = lambda = 1 is %3.2f%% \n (mean top-1 classification score over unseen classes)\n',100*T1)
+% You should get T1 = 38.98%.
 
 %% Random weights versus optimized ones
 
@@ -227,6 +230,8 @@ fprintf('Checking performance across several hyper-parameters: [')
 counter = 0;
 vals = kron([1 3],10.^(-6:6));
 for i = 1 : length(vals)
+	gamma_ = vals(i);
+	
 	for j = 1 : length(vals)
 	
 		counter = counter + 1;
@@ -234,20 +239,20 @@ for i = 1 : length(vals)
 			fprintf('=')
 		end
 	  
-        gamma_ = vals(i);
-        lambda_ = vals(j);
-        V = pinv(X*X' + gamma_ * eye(d)) * X * Y * S' * pinv(S*S' + lambda_*eye(a));
+        
+        	lambda_ = vals(j);
+        	V = pinv(X*X' + gamma_ * eye(d)) * X * Y * S' * pinv(S*S' + lambda_*eye(a));
         
         
-        % Inference
-        clear scores PredictedUnseenLabels;
-        scores = transpose(Features(:,where_unseen_samples)) * V * S;
-        scores(:,SeenClassesID) = NaN;
-        [~,PredictedUnseenLabels] = max(scores,[],2);
+        	% Inference
+        	clear scores PredictedUnseenLabels;
+        	scores = transpose(Features(:,where_unseen_samples)) * V * S;
+        	scores(:,SeenClassesID) = NaN;
+        	[~,PredictedUnseenLabels] = max(scores,[],2);
         
-        T1(i,j) = mean(PredictedUnseenLabels == Labels(where_unseen_samples));
+        	T1(i,j) = mean(PredictedUnseenLabels == Labels(where_unseen_samples));
          
-    end
+    	end
 end
 fprintf('done! \n')
 
